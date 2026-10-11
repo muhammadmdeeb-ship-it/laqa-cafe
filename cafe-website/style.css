@@ -1,0 +1,59 @@
+.info-box {
+    background: #ffffff;
+    padding: 22px;
+    border-radius: 14px;
+    width: 280px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: right;
+    border-top: 4px solid #e6c667;
+}
+
+.info-box h4 {
+    color: #140d09;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* أسفل الصفحة والتواصل */
+footer {
+    background-color: #0d0805;
+    color: #ffffff;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+.whatsapp-btn {
+    background-color: #25d366;
+    color: #ffffff !important;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 8px 4px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.insta-btn {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: #ffffff !important;
+    padding: 10px 22px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 8px 4px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* تحسينات العرض على الهواتف */
+@media (max-width: 600px) {
+    header h1 { font-size: 24px; }
+    nav a { font-size: 12px; margin: 0 5px; }
+    .hero { padding: 50px 15px; }
+    .hero h2 { font-size: 25px; }
+    .menu-card { padding: 12px; gap: 10px; }
+    .menu-img { width: 60px; height: 60px; }
+    .menu-info h3 { font-size: 16px; }
+    .price { padding: 6px 12px; font-size: 13px; }
+}
