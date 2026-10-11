@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<style>
+  /* إخفاء شريط الاستضافة المجانية السفلي نهائياً */
+  iframe[src*="tiiny"], 
+  div[class*="tiiny"],
+  [id*="tiiny"],
+  .tiiny-badge,
+  body > div:last-child {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+  }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كافيه لقى - LAQA CAFE</title>
+    <!-- استدعاء خطوط عربية فاخرة -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Tajawal:wght@400;500;700&display=swap">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #f7f3ee; color: #1f1915; direction: rtl; text-align: right; }
+        h1, h2, h3, h4 { font-family: 'Cairo', sans-serif; }
+
+        /* الهيدر العلوي مع إضاءة اسم لقى وتكبيره */
+        header { 
+            background-color: #140d09; 
+            color: #ffffff; 
+            padding: 25px 20px; 
+            text-align: center; 
+            border-bottom: 3px solid #e6c667; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+
+        /* تكبير كلمة لقى وتزويدها بالإضاءة المتوهجة */
+        .brand-title { 
+            font-size: 48px; 
+            font-weight: 900;
+            color: #ffde6a; 
+            letter-spacing: 2px;
+            text-shadow: 
+                0 0 10px rgba(255, 222, 106, 0.8),
+                0 0 20px rgba(230, 198, 103, 0.6),
+                0 0 30px rgba(230, 198, 103, 0.4);
+            margin-bottom: 2px;
+            line-height: 1.1;
+        }
+
+        header p.subtitle { 
+            font-size: 14px; 
+            color: #d1bead; 
+            letter-spacing: 3px; 
+            font-weight: 600;
+        }
+
+        .slogan {
+            font-size: 15px;
+            color: #e6c667;
+            margin-top: 6px;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* الواجهة الرئيسية */
+        .hero { 
+            background: linear-gradient(rgba(15, 10, 7, 0.85), rgba(15, 10, 7, 0.85)), 
+                        url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1200&auto=format&fit=crop') no-repeat center center/cover;
+            color: #ffffff; 
+            text-align: center; 
+            padding: 70px 20px; 
+        }
+        .hero h2 { font-size: 32px; color: #e6c667; margin-bottom: 10px; font-weight: 800; }
+        .hero p { font-size: 18px; color: #dcd3cb; max-width: 600px; margin: 0 auto; }
+
+        /* قسم المنيو والتصنيفات الأربعة */
+        .menu-container {
+            max-width: 800px;
+            margin: 35px auto;
+            padding: 0 15px;
+        }
+
+        .menu-title {
+            text-align: center;
+            font-size: 28px;
+            color: #140d09;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .menu-slogan-box {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #8c6d3b;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        /* أزرار التنقل بين الأقسام */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: #ffffff;
+            color: #140d09;
+            border: 2px solid #e6c667;
+            padding: 9px 16px;
+            border-radius: 25px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: #e6c667;
+            color: #140d09;
+            box-shadow: 0 4px 10px rgba(230, 198, 103, 0.3);
+        }
+
+        /* محتوى وقوائم الأصناف */
+        .category-content {
+            display: none;
+        }
+
+        .category-content.active {
+            display: block;
+        }.menu-card { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            background: #ffffff; 
+            padding: 14px 18px; 
+            margin-bottom: 12px; 
+            border-radius: 12px; 
+            border-right: 5px solid #e6c667; 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03); 
+            gap: 15px; 
+        }
+
+        .menu-info h3 { font-size: 17px; color: #140d09; font-weight: 700; }
+        .price { background: #f4eae0; color: #140d09; padding: 6px 14px; border-radius: 15px; font-weight: 700; font-size: 15px; white-space: nowrap; flex-shrink: 0; border: 1px solid #e8d7c5; }
+
+        /* قسم الدوام والموقع */
+        .info-section { 
+            background: #ebdcd0; 
+            padding: 40px 20px; 
+            text-align: center; 
+        }
+        .info-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 20px; 
+        }
+        .info-box { 
+            background: #ffffff; 
+            padding: 20px; 
+            border-radius: 12px; 
+            width: 280px; 
+            text-align: right; 
+            border-top: 4px solid #e6c667; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); 
+        }
+
+        /* قسم الحجز والطلبات المباشرة */
+        .booking-section {
+            background-color: #140d09;
+            color: #ffffff;
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #2a1f18;
+        }
+
+        .booking-btn {
+            background: linear-gradient(135deg, #e6c667, #c49a2c);
+            color: #140d09;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(230, 198, 103, 0.3);
+        }
+
+        /* الفوتر */
+        footer { background: #0d0805; color: #ffffff; text-align: center; padding: 30px 20px; }
+        .whatsapp-btn { background: #25d366; color: #fff !important; padding: 10px 22px; border-radius: 20px; text-decoration: none; display: inline-block; margin: 5px; font-weight: 700; }
+        .insta-btn { background: #dc2743; color: #fff !important; padding: 10px 22px; border-radius: 20px; text-decoration: none; display: inline-block; margin: 5px; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <!-- الشريط العلوي مع الاسم المضيء والكبير -->
+    <header>
+        <h1 class="brand-title">كافية لُـقـى </h1>
+        <p class="subtitle">LAQA CAFE</p>
+        <p class="slogan">♡ لقاء بطعم مختلف .. ♡</p>
+    </header>
+
+    <!-- الواجهة الرئيسية -->
+    <section class="hero">
+        <h2>أجود أنواع القهوة المختصة ☕</h2>
+        <p>أينما كان اللقى... كانت القهوة تحلو. أهلاً بكم في كافية لُقى.</p>
+    </section>
+
+    <!-- قسم المنيو الشامل من كرت المحل -->
+    <section class="menu-container">
+        <h2 class="menu-title">📋 قائمة المنيو</h2>
+        <div class="menu-slogan-box">♡ لقاء بطعم مختلف .. ♡</div>
+        
+        <!-- أزرار الأقسام الأربعة -->
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="openCategory('hot')">☕ المشروبات الساخنة</button>
+            <button class="tab-btn" onclick="openCategory('mojito')">🍹 الموهيتو</button>
+            <button class="tab-btn" onclick="openCategory('cold')">🧊 المشروبات الباردة</button>
+            <button class="tab-btn" onclick="openCategory('sweets')">🍰 الحلويات</button>
+        </div>
+
+        <!-- 1. المشروبات الساخنة -->
+        <div id="hot" class="category-content active">
+            <div class="menu-card"><div class="menu-info"><h3>اسبريسو</h3></div><span class="price">50 ل.س</span></div><div class="menu-card"><div class="menu-info"><h3>هوت شوكليت</h3></div><span class="price">20 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كبتشينو</h3></div><span class="price">100 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كبتشينو حليب</h3></div><span class="price">150 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كورتادو</h3></div><span class="price">150 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>مكياتو</h3></div><span class="price">150 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كرك</h3></div><span class="price">150 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كرك حليب</h3></div><span class="price">200 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>لاتيه</h3></div><span class="price">200 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>سبانيش لاتيه</h3></div><span class="price">200 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>فلات وايت</h3></div><span class="price">200 ل.س</span></div>
+        </div>
+
+        <!-- 2. الموهيتو -->
+        <div id="mojito" class="category-content">
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو بلوبيري</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو فريز</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو اناناس</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو كيوي</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو دراق</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو منجا</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو روز بيري</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو بطيخ اصفر</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو بطيخ احمر</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو كرز</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو ميكس</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو فايف ستاز</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو لقى</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>موهيتو Cherry Pop</h3></div><span class="price">300 ل.س</span></div>
+        </div>
+
+        <!-- 3. المشروبات الباردة -->
+        <div id="cold" class="category-content">
+            <div class="menu-card"><div class="menu-info"><h3>V60</h3></div><span class="price">500 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ايس لاتيه</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ايس سبانيش لاتيه</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ايس موكا</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ايس وايت موكا</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ايس لاتيه سترويري</h3></div><span class="price">350 ل.س</span></div><div class="menu-card"><div class="menu-info"><h3>ايس لاتيه بلوبيري</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كراميل لاتيه</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>فانيلا لاتيه</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كوكونوت لاتيه</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ايس ماتشا</h3></div><span class="price">450 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ايس سترويري ماتشا</h3></div><span class="price">500 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ايس فانيلا ماتشا</h3></div><span class="price">500 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ايس كراميل ماتشا</h3></div><span class="price">500 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>فرابينشينو</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ميلك شيك فريز</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ميلك شيك شوكليت</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ميلك شيك اوريو</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ميلك شيك فانيليا</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ميلك شيك لوتس</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ميلك شيك سنيكرز</h3></div><span class="price">550 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>ميلك شيك تويكس</h3></div><span class="price">400 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>بينا كولادا</h3></div><span class="price">400 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كريب بستاشيو</h3></div><span class="price">350 ل.س</span></div>
+        </div>
+
+        <!-- 4. الحلويات -->
+        <div id="sweets" class="category-content">
+            <div class="menu-card"><div class="menu-info"><h3>وافل شوكولا</h3></div><span class="price">400 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>وافل لوتس</h3></div><span class="price">400 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>وافل بستاشيو</h3></div><span class="price">400 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>وافل ايس كريم</h3></div><span class="price">450 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كريب نوتيلا</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كريب بستاشيو</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كريب بانانا رول</h3></div><span class="price">350 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>براونيز كريب</h3></div><span class="price">450 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>فوندونشيشي كريب</h3></div><span class="price">400 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كريب لوتس</h3></div><span class="price">500 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>تراميسو</h3></div><span class="price">300 ل.س</span></div>
+            <div class="menu-card"><div class="menu-info"><h3>كوكيز ايسكريم شوكليت</h3></div><span class="price">-</span></div>
+        </div>
+    </section><!-- قسم أوقات الدوام والموقع -->
+    <section class="info-section">
+        <h2 style="color: #140d09; margin-bottom: 20px;">🕒 أوقات العمل والموقع</h2>
+        <div class="info-container">
+            <div class="info-box">
+                <h4>⏰ ساعات الدوام</h4>
+                <p>يومياً وبدون انقطاع:<br><b>9:30 AM ➔ 1:30 AM</b></p>
+            </div>
+            <div class="info-box">
+                <h4>📍 الموقع والتفاصيل</h4>
+                <p><b>الرقة | مقابل المعهد الرياضي</b></p>
+                <p>☕ جلسات مميزة وأجواء هادئة</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الحجز والطلبات -->
+    <section class="booking-section">
+        <h3 style="color: #e6c667; font-size: 22px;">🛋️ طلب أو حجز طاولة مسبقاً؟</h3>
+        <p style="color: #ccc; margin-top: 5px;">يمكنك طلب مشروبك المفضل أو حجز جلسة مباشرة قبل وصولك</p>
+        <a href="https://wa.me/963991982303?text=أهلاً%20كافيه%20لقى،%20أريد%20حجز%20طاولة%20أو%20الطلب" target="_blank" class="booking-btn">احجز / اطلب الآن عبر الواتساب</a>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <p style="font-size: 15px; margin-bottom: 10px;">يسعدنا زيارتكم وتواصلكم معنا</p>
+        <div>
+            <a href="https://wa.me/0123456789" target="_blank" class="whatsapp-btn">💬 تواصل عبر الواتساب</a>
+            <a href="https://instagram.com/l11a_coffee" target="_blank" class="insta-btn">📸 تابعنا على الانستغرام</a>
+        </div>
+        <p style="margin-top: 25px; color: #888; font-size: 13px;">© 2026 كافيه لقى - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <!-- كود التفاعلية للانتقال بين الأقسام الأربعة -->
+    <script>
+        function openCategory(categoryName) {
+            var contents = document.getElementsByClassName("category-content");
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+
+            var tabs = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+
+            document.getElementById(categoryName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
